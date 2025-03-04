@@ -1,0 +1,41 @@
+# This is Simple Yaml File For Creating a Pod
+# This is a simple pod definition file that creates a pod named web-server with a single container running the nginx:1.14.2 image. The container listens on port 80 for incoming traffic.
+# The pod is created in the default namespace.
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: web-server
+spec:
+  containers:
+  - image: nginx:1.14.2
+    name: web-server
+    resources:
+      requests:
+        cpu: "250m"
+        memory: "64Mi"
+      limits:
+        cpu: "500m"
+        memory: "128Mi"
+    livenessProbe:
+      httpGet:
+        path: /
+        port: 80
+      initialDelaySeconds: 3
+      periodSeconds: 10
+      timeoutSeconds: 2
+      successThreshold: 1
+      failureThreshold: 3
+    readinessProbe:
+      httpGet:
+        path: /
+        port: 80
+      initialDelaySeconds: 3
+      periodSeconds: 5
+      timeoutSeconds: 1
+      successThreshold: 1
+      failureThreshold: 3
+    ports:
+    - containerPort: 80
+      name: http
+      protocol: TCP 

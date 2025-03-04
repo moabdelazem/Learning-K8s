@@ -1,0 +1,43 @@
+# This is Example Manifest Yaml File For Creating a Pod on Web API I Created in go 
+# Image Link: https://hub.docker.com/repository/docker/moabdelazem/microservice/general
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: microservice
+  labels:
+    name: microservice 
+spec:
+  containers:
+  - name: microservice
+    image: moabdelazem/microservice:latest
+    resources:
+      limits:
+        memory: "128Mi"
+        cpu: "500m"
+    ports:
+      - containerPort: 8080
+        name: http
+        protocol: TCP
+    livenessProbe:
+      httpGet:
+        path: /
+        port: 8080
+      initialDelaySeconds: 10
+      periodSeconds: 5
+      failureThreshold: 3
+    readinessProbe:
+      httpGet:
+        path: /
+        port: 8080
+      initialDelaySeconds: 10
+      periodSeconds: 5
+      failureThreshold: 3
+    startupProbe:
+      httpGet:
+        path: /
+        port: 8080
+      initialDelaySeconds: 10
+      periodSeconds: 5
+      failureThreshold: 3
+
