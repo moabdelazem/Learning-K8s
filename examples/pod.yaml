@@ -12,9 +12,12 @@ spec:
   - name: microservice
     image: moabdelazem/microservice:latest
     resources:
-      limits:
+      requests:
+        cpu : "500m"
         memory: "128Mi"
-        cpu: "500m"
+      limits:
+        memory: "256Mi"
+        cpu: "1000m"
     ports:
       - containerPort: 8080
         name: http
