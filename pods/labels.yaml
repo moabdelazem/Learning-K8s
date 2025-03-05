@@ -6,6 +6,10 @@ metadata:
     app.kubernetes.io/name: "backend-service"
     app.kubernetes.io/component: "service"
     app.kubernetes.io/version: "v1.0"
+  annotations:
+    description: "Backend Service"
+    owner: "Mohamed Abdelazim"
+    email: "mabdelazemahmed@gmail.com"
 spec:
   containers:
     - image: moabdelazem/microservice:latest
