@@ -1,0 +1,104 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: backend-service
+  labels:
+    app.kubernetes.io/name: "backend-service"
+    app.kubernetes.io/component: "service"
+    app.kubernetes.io/version: "v1.0"
+spec:
+  containers:
+    - image: moabdelazem/microservice:latest
+      name: backend-servicename 
+      ports:
+        - containerPort: 8080
+          name: http
+          protocol: TCP
+      resources:
+        requests:
+          cpu: "250m"
+          memory: "64Mi"
+        limits:
+          cpu: "500m"
+          memory: "128Mi"
+      livenessProbe:
+        httpGet:
+          path: /
+          port: 8080
+        initialDelaySeconds: 30
+        periodSeconds: 10
+        failureThreshold: 3
+        successThreshold: 1
+
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: frontend-service
+  labels:
+    app.kubernetes.io/name: "frontend-service"
+    app.kubernetes.io/component: "service"
+    app.kubernetes.io/version: "v1.0"
+  
+spec:
+  containers:
+    - image: nginx:alpine
+      name: frontend-servicename
+      ports:
+        - containerPort: 80
+          name: http
+          protocol: TCP
+      resources:
+        requests:
+          cpu: "250m"
+          memory: "64Mi"
+        limits:
+          cpu: "500m"
+          memory: "128Mi"
+
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: logging-service
+  labels:
+    app.kubernetes.io/name: "logging-service"
+    app.kubernetes.io/component: "utility"
+    app.kubernetes.io/version: "v1.0"
+spec:
+  containers:
+    - name: logging-container
+      image: alpine
+      command: ['sh', '-c', 'while true; do echo $(date) " | SideCar Log"; sleep 10; done']
+      resources:
+        requests:
+          cpu: "25m"
+          memory: "16Mi"
+        limits:
+          cpu: "50m"
+          memory: "32Mi"
+
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: monitoring-service
+  labels:
+    app.kubernetes.io/name: "monitoring-service"
+    app.kubernetes.io/component: "utility"
+    app.kubernetes.io/version: "v1.0"
+spec:
+  containers:
+    - image: prom/prometheus
+      name: monitoring-container
+      ports:
+        - containerPort: 9090
+          name: http
+          protocol: TCP
+      resources:
+        requests:
+          cpu: "250m"
+          memory: "64Mi"
+        limits:
+          cpu: "500m"
+          memory: "128Mi"

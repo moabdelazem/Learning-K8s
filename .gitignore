@@ -1,0 +1,2 @@
+# Ignore the nfs example for containting senstive information
+nfs.yaml
