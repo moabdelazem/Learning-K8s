@@ -1,5 +1,5 @@
-# This file contains a pod definition that creates a pod named multi-pod with two containers. 
-# The first container runs the nginx:1.14.2 image and listens on port 80 for incoming traffic. 
+# This file contains a pod definition that creates a pod named multi-pod with two containers.
+# The first container runs the nginx:1.14.2 image and listens on port 80 for incoming traffic.
 # The second container runs the busybox image and executes the command echo Hello Kubernetes From Mo! && sleep 3600. The pod is created in the default namespace.
 
 apiVersion: v1
@@ -8,12 +8,26 @@ metadata:
   name: multi-pod
 spec:
   containers:
-  - name: web-server
-    image: nginx:1.14.2
-    ports:
-    - containerPort: 80
-      name: http
-      protocol: TCP
-  - name: busybox
-    image: busybox
-    command: ['sh', '-c', 'echo Hello Kubernetes From Mo! && sleep 3600'] 
+    - name: web-server
+      image: nginx:1.14.2
+      ports:
+        - containerPort: 80
+          name: http
+          protocol: TCP
+      resources:
+        limits:
+          memory: "64Mi"
+          cpu: "500m"
+        requests:
+          memory: "32Mi"
+          cpu: "250m"
+    - name: busybox
+      image: busybox
+      command: ["sh", "-c", "echo Hello Kubernetes From Mo! && sleep 3600"]
+      resources:
+        limits:
+          memory: "64Mi"
+          cpu: "500m"
+        requests:
+          memory: "32Mi"
+          cpu: "250m"
