@@ -1,0 +1,54 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nginx-config-map
+data:
+  nginx.conf: |
+    events {
+      worker_connections  1024;
+    }
+
+    http {
+      server {
+        listen 80;
+        server_name localhost;
+
+        location / {
+          root   /usr/share/nginx/html;
+          index  index.html index.htm;
+          # Return a custom message instead of a file
+          return 200 'Hello from our custom Nginx configuration managed by a ConfigMap!\n';
+        }
+      }
+    }
+
+---
+apiVersion: v1
+kind: Pod
+metadata: 
+  name: nginx-pod
+spec: 
+  containers:
+    - name: nginx-pod
+      image: nginx:1.25
+
+      volumeMounts:
+        - name: nginx-config-volume
+          mountPath: /etc/nginx/nginx.conf
+          subPath: nginx.conf
+      
+      resources:
+        limits:
+          cpu: "200m"
+          memory: "256Mi"
+        requests:
+          cpu: "100m"
+          memory: "128Mi"
+      
+      ports:
+        - containerPort: 80
+
+  volumes:
+    - name: nginx-config-volume
+      configMap:
+        name: nginx-config-map

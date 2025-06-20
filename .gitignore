@@ -1,2 +1,5 @@
 # Ignore the nfs example for containting senstive information
 nfs.yaml
+
+# Ignore test.yml
+test.yml
