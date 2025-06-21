@@ -1,0 +1,61 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-app
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx-app-container
+        image: nginx:1.25
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "250m"
+          limits:
+            memory: "256Mi" 
+            cpu: "500m"
+        ports:
+        - containerPort: 80
+        volumeMounts:
+          - name: nginx-config-volume
+            mountPath: /etc/nginx/nginx.conf
+            subPath: nginx.conf
+          
+          - name: html-config-volume
+            mountPath: /usr/share/nginx/html/index.html
+            subPath: index.html
+
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 80
+          initialDelaySeconds: 5
+          periodSeconds: 20
+          failureThreshold: 3
+          successThreshold: 1
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 80
+          initialDelaySeconds: 15
+          periodSeconds: 30
+          failureThreshold: 5
+          successThreshold: 1
+      volumes:
+        - name: nginx-config-volume
+          configMap:
+            name: nginx-config
+        
+        - name: html-config-volume
+          configMap:
+            name: nginx-config
+
+

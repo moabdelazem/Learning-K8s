@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎉 Welcome to K8s Land! 🎉</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Fredoka+One:wght@400&family=Nunito:wght@300;400;600;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Animated background particles */
+        .particle {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .particle:nth-child(1) {
+            top: 20%;
+            left: 20%;
+            animation-delay: 0s;
+        }
+
+        .particle:nth-child(2) {
+            top: 60%;
+            left: 80%;
+            animation-delay: 2s;
+        }
+
+        .particle:nth-child(3) {
+            top: 40%;
+            left: 40%;
+            animation-delay: 4s;
+        }
+
+        .particle:nth-child(4) {
+            top: 80%;
+            left: 10%;
+            animation-delay: 1s;
+        }
+
+        .particle:nth-child(5) {
+            top: 10%;
+            left: 90%;
+            animation-delay: 3s;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0px) rotate(0deg);
+            }
+
+            33% {
+                transform: translateY(-30px) rotate(120deg);
+            }
+
+            66% {
+                transform: translateY(30px) rotate(240deg);
+            }
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 30px;
+            padding: 60px 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            max-width: 600px;
+            width: 90%;
+            transform: translateY(20px);
+            animation: slideUp 1s ease-out forwards;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .container::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(102, 126, 234, 0.1), transparent);
+            animation: shine 3s linear infinite;
+        }
+
+        @keyframes slideUp {
+            to {
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes shine {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .emoji {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            display: inline-block;
+            animation: bounce 2s ease-in-out infinite;
+        }
+
+        @keyframes bounce {
+
+            0%,
+            20%,
+            50%,
+            80%,
+            100% {
+                transform: translateY(0);
+            }
+
+            40% {
+                transform: translateY(-20px);
+            }
+
+            60% {
+                transform: translateY(-10px);
+            }
+        }
+
+        h1 {
+            font-family: 'Fredoka One', cursive;
+            font-size: 3rem;
+            color: #4a5568;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            animation: colorShift 4s ease-in-out infinite;
+            position: relative;
+            z-index: 2;
+        }
+
+        @keyframes colorShift {
+
+            0%,
+            100% {
+                color: #4a5568;
+            }
+
+            25% {
+                color: #667eea;
+            }
+
+            50% {
+                color: #764ba2;
+            }
+
+            75% {
+                color: #f093fb;
+            }
+        }
+
+        .subtitle {
+            font-size: 1.4rem;
+            color: #718096;
+            margin-bottom: 30px;
+            font-weight: 300;
+            animation: fadeInUp 1.5s ease-out 0.5s both;
+            position: relative;
+            z-index: 2;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .k8s-logo {
+            width: 80px;
+            height: 80px;
+            margin: 20px auto;
+            background: linear-gradient(135deg, #326ce5, #4285f4);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2rem;
+            font-weight: bold;
+            animation: spin 3s linear infinite;
+            box-shadow: 0 10px 30px rgba(50, 108, 229, 0.3);
+        }
+
+        @keyframes spin {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .features {
+            display: flex;
+            justify-content: space-around;
+            margin: 30px 0;
+            flex-wrap: wrap;
+            gap: 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .feature {
+            background: linear-gradient(135deg, #f093fb, #f5576c);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            box-shadow: 0 5px 15px rgba(240, 147, 251, 0.4);
+            animation: wiggle 2s ease-in-out infinite;
+            animation-delay: var(--delay);
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .feature:hover {
+            transform: scale(1.1);
+        }
+
+        .feature:nth-child(1) {
+            --delay: 0s;
+        }
+
+        .feature:nth-child(2) {
+            --delay: 0.5s;
+        }
+
+        .feature:nth-child(3) {
+            --delay: 1s;
+        }
+
+        @keyframes wiggle {
+
+            0%,
+            100% {
+                transform: rotate(0deg);
+            }
+
+            25% {
+                transform: rotate(2deg);
+            }
+
+            75% {
+                transform: rotate(-2deg);
+            }
+        }
+
+        .fun-fact {
+            background: rgba(102, 126, 234, 0.1);
+            border-left: 4px solid #667eea;
+            padding: 20px;
+            margin: 30px 0;
+            border-radius: 10px;
+            font-style: italic;
+            color: #4a5568;
+            animation: slideInLeft 2s ease-out 1s both;
+            position: relative;
+            z-index: 2;
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .footer {
+            margin-top: 30px;
+            color: #a0aec0;
+            font-size: 0.9rem;
+            animation: fadeIn 3s ease-out 2s both;
+            position: relative;
+            z-index: 2;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 40px 20px;
+                margin: 20px;
+            }
+
+            h1 {
+                font-size: 2.2rem;
+            }
+
+            .emoji {
+                font-size: 3rem;
+            }
+
+            .features {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Animated background particles -->
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+
+    <div class="container">
+        <div class="emoji">🚀</div>
+        <h1>Hello from our Kubernetes ConfigMap!</h1>
+        <p class="subtitle">Welcome to the magical world of container orchestration! ✨</p>
+
+        <div class="k8s-logo">K8s</div>
+
+        <div class="features">
+            <div class="feature">🎯 Scalable</div>
+            <div class="feature">🔧 Configurable</div>
+            <div class="feature">🌟 Awesome</div>
+        </div>
+
+        <div class="fun-fact">
+            <strong>Fun Fact:</strong> This page content is managed externally through ConfigMaps,
+            making it super easy to update without rebuilding containers! 🎪
+        </div>
+
+        <div class="footer">
+            Powered by Kubernetes ConfigMaps 💙<br>
+            Making deployment management fun since... well, now! 🎉
+        </div>
+    </div>
+</body>
+
+</html>
